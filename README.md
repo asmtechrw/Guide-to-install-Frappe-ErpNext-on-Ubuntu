@@ -1,7 +1,7 @@
 
 # ERPNext v16 Installation Guide on Ubuntu 24.04
 
-## Maintained by Abhishek Chougule
+## Maintained by Muwanika Henry Robert
 
 Production-ready ERPNext v16 installation guide for Ubuntu 24.04 including:
 
@@ -35,15 +35,14 @@ Production-ready ERPNext v16 installation guide for Ubuntu 24.04 including:
 ## Update System
 
 ```bash
-sudo apt update -y
-sudo apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 ```
 
 ## Set Timezone
 
 ```bash
 date
-timedatectl set-timezone "Asia/Kolkata"
+sudo timedatectl set-timezone "Africa/Kigali"
 ```
 
 ## Create User
@@ -61,7 +60,7 @@ su frappe
 ## Install Dependencies
 
 ```bash
-sudo apt install git curl redis-server mariadb-server mariadb-client python3-dev python3-pip python3-setuptools python3-venv xvfb libfontconfig libmysqlclient-dev pkg-config software-properties-common net-tools nginx supervisor -y
+sudo apt install -y git curl redis-server mariadb-server mariadb-client python3-dev python3-pip python3-setuptools python3-venv xvfb libfontconfig libmysqlclient-dev pkg-config software-properties-common net-tools nginx supervisor
 ```
 
 ## Install Python 3.14 using UV
@@ -117,7 +116,7 @@ wkhtmltopdf --version
 ## Secure MariaDB
 
 ```bash
-sudo mysql_secure_installation
+sudo maria-secure-installation
 ```
 
 ## Configure MariaDB UTF8
@@ -230,7 +229,6 @@ sudo chmod -R o+rx /home/frappe/
 ---
 
 # 6. Create Site & Install Frappe
-
 ## Create New Site
 
 ```bash
@@ -296,14 +294,22 @@ sudo supervisorctl restart all
 
 ```bash
 bench get-app --branch version-16 erpnext
-bench --site site1.local install-app erpnext
+bench get-app hrms --branch version-16
+bench get-app https://github.com/CoaleTech/payroll_africa.git
+bench get-app crm
+bench get-app https://github.com/navariltd/utility-billing.git
 ```
 
-## HRMS
+## Install apps on site
 
 ```bash
-bench get-app --branch version-16 hrms
+bench --site site1.local install-app erpnext
 bench --site site1.local install-app hrms
+bench --site site1.local install-app payroll_africa
+bench --site site1.local install-app crm
+bench --site site1.local install-app utility-billing
+bench --site site1.local migrate
+bench use site1.local 
 ```
 
 Verify:
@@ -331,7 +337,7 @@ bench setup add-domain www.mrabhi.com --site mrabhi.com
 ## Install SSL Dependencies
 
 ```bash
-#dont use this if using uv
+# dont use this if using uv
 sudo pip install -U pyOpenSSL cryptography
 sudo pip install certbot
 
@@ -358,6 +364,7 @@ sudo -H bench setup lets-encrypt mrabhi.com --custom-domain www.mrabhi.com
 ## Firewall Fix
 
 ```bash
+sudo apt install -y iptables
 sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 80 -j ACCEPT
 sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 443 -j ACCEPT
 sudo netfilter-persistent save
@@ -419,8 +426,8 @@ bench setup socketio && bench setup supervisor && bench setup redis && sudo supe
 ## India Compliance
 
 ```bash
-bench get-app --branch version-16 india_compliance https://github.com/resilient-tech/india-compliance
-bench --site site1.local install-app india_compliance
+bench get-app --branch version-16 uganda_compliance https://github.com/erpchampions/uganda_compliance.git
+bench --site site1.local install-app uganda_compliance
 ```
 
 ## Chat
