@@ -59,9 +59,10 @@ su - frappe
 ## Install Dependencies
 
 ```bash
-sudo apt install -y git curl build-essential redis-server python3-dev python3-pip python3-setuptools python3-venv libffi-dev libssl-dev cron libfontconfig \
-libmariadb-dev pkg-config software-properties-common net-tools nginx supervisor xvfb libfontconfig fontconfig zlib1g-dev libncurses5-dev libncursesw5-dev \
-libreadline-dev libsqlite3-dev libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev
+sudo apt install -y git curl build-essential redis-server python3-dev python3-pip python3-setuptools python3-venv \
+libffi-dev libssl-dev cron libfontconfig libmariadb-dev pkg-config software-properties-common net-tools nginx supervisor \
+xvfb libfontconfig fontconfig zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev \
+libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev
 
 sudo systemctl enable nginx
 sudo systemctl enable supervisor
