@@ -60,8 +60,10 @@ su - frappe
 
 ```bash
 sudo apt install -y git curl build-essential redis-server python3-dev python3-pip python3-setuptools python3-venv libffi-dev libssl-dev cron libfontconfig \
-libmariadb-dev pkg-config software-properties-common net-tools nginx supervisor xvfb libfontconfig fontconfig
+libmariadb-dev pkg-config software-properties-common net-tools nginx supervisor xvfb libfontconfig fontconfig zlib1g-dev libncurses5-dev libncursesw5-dev \
+libreadline-dev libsqlite3-dev libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev 
 ```
+ 
 ## Install Mariadb
 ```bash
 curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-11.8"
@@ -305,6 +307,7 @@ sudo supervisorctl restart all
 bench get-app --branch version-16 erpnext
 bench get-app hrms --branch version-16
 bench get-app https://github.com/CoaleTech/payroll_africa.git
+bench get-app https://github.com/shridarpatil/frappe_whatsapp
 bench get-app crm
 bench get-app https://github.com/navariltd/utility-billing.git
 ```
@@ -315,10 +318,12 @@ bench get-app https://github.com/navariltd/utility-billing.git
 bench --site site1.local install-app erpnext
 bench --site site1.local install-app hrms
 bench --site site1.local install-app payroll_africa
+bench --site site1.local install-app frappe_whatsapp
 bench --site site1.local install-app crm
 bench --site site1.local install-app utility-billing
 bench --site site1.local migrate
-bench use site1.local 
+bench --site site1.local clear-cache
+bench use site1.local
 ```
 
 Verify:
