@@ -312,7 +312,7 @@ sudo supervisorctl restart all
 bench get-app --branch version-16 erpnext
 bench get-app hrms --branch version-16
 bench get-app https://github.com/CoaleTech/payroll_africa.git
-bench get-app https://github.com/shridarpatil/frappe_whatsapp
+bench get-app whatsapp
 bench get-app crm
 bench get-app https://github.com/navariltd/utility-billing.git
 ```
@@ -323,7 +323,7 @@ bench get-app https://github.com/navariltd/utility-billing.git
 bench --site site1.local install-app erpnext
 bench --site site1.local install-app hrms
 bench --site site1.local install-app payroll_africa
-bench --site site1.local install-app frappe_whatsapp
+bench --site site1.local install-app whatsapp
 bench --site site1.local install-app crm
 bench --site site1.local install-app utility-billing
 bench --site site1.local migrate
