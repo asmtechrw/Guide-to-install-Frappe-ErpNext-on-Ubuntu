@@ -189,8 +189,6 @@ source ~/.profile
 nvm install 24
 nvm use 24
 nvm alias default 24
-npm install -g yarn
-node -v && yarn -v
 ```
 
 Verify:
@@ -220,9 +218,6 @@ yarn --version
 ## Install Bench
 
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-source ~/.bashrc
-uv python install 3.14 --default
 uv tool install frappe-bench
 bench --version
 ```
