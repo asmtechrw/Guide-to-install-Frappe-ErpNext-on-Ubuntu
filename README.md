@@ -41,8 +41,7 @@ sudo apt update && sudo apt upgrade -y
 ## Set Timezone
 
 ```bash
-date
-sudo timedatectl set-timezone "Africa/Kigali"
+sudo timedatectl set-timezone Africa/Kigali
 ```
 
 ## Create User
@@ -50,7 +49,7 @@ sudo timedatectl set-timezone "Africa/Kigali"
 ```bash
 sudo adduser frappe
 sudo usermod -aG sudo frappe
-su frappe
+su - frappe
 ```
 
 ---
@@ -60,7 +59,15 @@ su frappe
 ## Install Dependencies
 
 ```bash
-sudo apt install -y git curl redis-server mariadb-server mariadb-client python3-dev python3-pip python3-setuptools python3-venv xvfb libfontconfig libmysqlclient-dev pkg-config software-properties-common net-tools nginx supervisor
+sudo apt install -y git curl build-essential redis-server python3-dev python3-pip python3-setuptools python3-venv libffi-dev libssl-dev cron libfontconfig \
+libmariadb-dev pkg-config software-properties-common net-tools nginx supervisor xvfb libfontconfig fontconfig
+```
+## Install Mariadb
+```bash
+curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-11.8"
+sudo apt update
+sudo apt install -y mariadb-server mariadb-client
+mariadb --version
 ```
 
 ## Install Python 3.14 using UV
@@ -86,21 +93,21 @@ uv --version
 ### ARM64
 
 ```bash
-sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_arm64.deb
+sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_arm64.deb
 ```
 
 ### AMD64
 
 ```bash
-sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb
+sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb
 ```
 
 Install Package:
 
 ```bash
-sudo dpkg -i wkhtmltox_0.12.6.1-2.jammy_amd64.deb
+sudo dpkg -i wkhtmltox_0.12.6.1-3.jammy_amd64.deb
 sudo apt-get -f install -y
-sudo dpkg -i wkhtmltox_0.12.6.1-2.jammy_amd64.deb
+sudo dpkg -i wkhtmltox_0.12.6.1-3.jammy_amd64.deb
 ```
 
 Verify:
@@ -116,18 +123,13 @@ wkhtmltopdf --version
 ## Secure MariaDB
 
 ```bash
-sudo maria-secure-installation
+sudo mariadb-secure-installation
 ```
 
 ## Configure MariaDB UTF8
 
 ```bash
-sudo nano /etc/mysql/my.cnf
-```
-
-Add:
-
-```ini
+sudo tee /etc/mysql/mariadb.conf.d/99-frappe.cnf > /dev/null <<'EOF'
 [mysqld]
 character-set-client-handshake = FALSE
 character-set-server = utf8mb4
@@ -135,8 +137,13 @@ collation-server = utf8mb4_unicode_ci
 
 [mysql]
 default-character-set = utf8mb4
+EOF
+sudo systemctl restart mariadb
 ```
 
+```bash
+sudo mariadb -e "SHOW VARIABLES LIKE 'character_set_server';"
+```
 ---
 
 ## Alternative MariaDB Config Path
@@ -176,11 +183,14 @@ sudo service mysql restart
 ## Install NVM & Node.js 24
 
 ```bash
-curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 source ~/.profile
 
 nvm install 24
 nvm use 24
+nvm alias default 24
+npm install -g yarn
+node -v && yarn -v
 ```
 
 Verify:
@@ -210,7 +220,11 @@ yarn --version
 ## Install Bench
 
 ```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source ~/.bashrc
+uv python install 3.14 --default
 uv tool install frappe-bench
+bench --version
 ```
 
 ## Initialize Bench
