@@ -232,7 +232,7 @@ bench --version
 ## Initialize Bench
 
 ```bash
-bench init --frappe-branch version-16 frappe-bench
+bench init frappe-bench --frappe-branch version-16 --python python3.14
 ```
 
 ## Set Permissions
@@ -240,6 +240,8 @@ bench init --frappe-branch version-16 frappe-bench
 ```bash
 cd frappe-bench
 sudo chmod -R o+rx /home/frappe/
+sudo addgroup supervisor
+sudo usermod -aG supervisor frappe
 ```
 
 ---
@@ -309,7 +311,7 @@ sudo supervisorctl restart all
 ## ERPNext
 
 ```bash
-bench get-app --branch version-16 erpnext
+bench get-app --branch version-16 erpnext 
 bench get-app hrms --branch version-16
 bench get-app https://github.com/CoaleTech/payroll_africa.git
 bench get-app whatsapp
@@ -386,6 +388,7 @@ sudo -H bench setup lets-encrypt mrabhi.com --custom-domain www.mrabhi.com
 sudo apt install -y iptables
 sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 80 -j ACCEPT
 sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 443 -j ACCEPT
+sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 22 -j ACCEPT
 sudo netfilter-persistent save
 sudo systemctl restart nginx
 ```
