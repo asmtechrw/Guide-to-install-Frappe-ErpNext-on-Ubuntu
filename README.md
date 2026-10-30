@@ -61,7 +61,10 @@ su - frappe
 ```bash
 sudo apt install -y git curl build-essential redis-server python3-dev python3-pip python3-setuptools python3-venv libffi-dev libssl-dev cron libfontconfig \
 libmariadb-dev pkg-config software-properties-common net-tools nginx supervisor xvfb libfontconfig fontconfig zlib1g-dev libncurses5-dev libncursesw5-dev \
-libreadline-dev libsqlite3-dev libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev 
+libreadline-dev libsqlite3-dev libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev
+
+sudo systemctl enable nginx
+sudo systemctl enable supervisor
 ```
  
 ## Install Mariadb
@@ -69,6 +72,7 @@ libreadline-dev libsqlite3-dev libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev
 curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-11.8"
 sudo apt update
 sudo apt install -y mariadb-server mariadb-client
+sudo systemctl enable mariadb
 mariadb --version
 ```
 
