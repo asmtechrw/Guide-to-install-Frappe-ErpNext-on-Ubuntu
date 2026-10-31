@@ -456,7 +456,7 @@ bench setup socketio && bench setup supervisor && bench setup redis && sudo supe
 
 # 10. Optional Modules
 
-## India Compliance
+## Uganda Compliance
 
 ```bash
 bench get-app --branch version-16 uganda_compliance https://github.com/erpchampions/uganda_compliance.git
