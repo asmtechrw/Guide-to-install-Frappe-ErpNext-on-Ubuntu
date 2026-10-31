@@ -317,6 +317,7 @@ bench get-app https://github.com/CoaleTech/payroll_africa.git
 bench get-app whatsapp
 bench get-app crm
 bench get-app https://github.com/navariltd/utility-billing.git
+bench get-app https://github.com/ravindu2012/pos-prime --branch main
 ```
 
 ## Install apps on site
@@ -328,6 +329,7 @@ bench --site site1.local install-app payroll_africa
 bench --site site1.local install-app whatsapp
 bench --site site1.local install-app crm
 bench --site site1.local install-app utility-billing
+bench --site site1.local install-app pos_prime
 bench --site site1.local migrate
 bench --site site1.local clear-cache
 bench use site1.local
