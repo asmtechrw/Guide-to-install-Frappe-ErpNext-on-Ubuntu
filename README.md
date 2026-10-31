@@ -59,7 +59,7 @@ su - frappe
 ## Install Dependencies
 
 ```bash
-sudo apt install -y git curl build-essential redis-server python3-dev python3-pip python3-setuptools python3-venv \
+sudo apt install -y git curl gcc build-essential redis-server python3-dev python3-pip python3-setuptools python3-venv \
 libffi-dev libssl-dev cron libfontconfig libmariadb-dev pkg-config software-properties-common net-tools nginx supervisor \
 xvfb libfontconfig fontconfig zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev \
 libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev
@@ -96,6 +96,12 @@ uv --version
 ---
 
 ## Install wkhtmltopdf
+
+Install libssl1.1 (Required dependency not in Noble repos)
+```bash
+wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb && \
+sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+```
 
 ### ARM64
 
@@ -145,7 +151,9 @@ collation-server = utf8mb4_unicode_ci
 [mysql]
 default-character-set = utf8mb4
 EOF
+
 sudo systemctl restart mariadb
+
 ```
 
 ```bash
@@ -180,7 +188,8 @@ Save & Exit:
 Restart MariaDB:
 
 ```bash
-sudo service mysql restart
+sudo systemctl restart mariadb
+
 ```
 
 ---
@@ -387,7 +396,7 @@ sudo -H bench setup lets-encrypt mrabhi.com --custom-domain www.mrabhi.com
 ## Firewall Fix
 
 ```bash
-sudo apt install -y iptables
+sudo apt install -y iptables iptables-persistent
 sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 80 -j ACCEPT
 sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 443 -j ACCEPT
 sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 22 -j ACCEPT
