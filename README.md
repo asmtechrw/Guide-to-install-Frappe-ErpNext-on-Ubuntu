@@ -401,6 +401,7 @@ sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 80 -j ACCEPT
 sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 443 -j ACCEPT
 sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 22 -j ACCEPT
 sudo netfilter-persistent save
+sudo netfilter-persistent reload
 sudo systemctl restart nginx
 ```
 
