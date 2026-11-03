@@ -326,7 +326,7 @@ sudo systemctl status nginx
 ```bash
 bench get-app --branch version-16 erpnext 
 bench get-app --branch version-16 hrms
-bench get-app --branch version-16 https://github.com/CoaleTech/payroll_africa.git
+bench get-app --branch develop https://github.com/CoaleTech/payroll_africa.git
 bench get-app whatsapp
 bench get-app crm
 bench get-app --branch version-16 https://github.com/navariltd/utility-billing.git
@@ -341,7 +341,7 @@ bench --site site1.local install-app hrms
 bench --site site1.local install-app payroll_africa
 bench --site site1.local install-app whatsapp
 bench --site site1.local install-app crm
-bench --site site1.local install-app utility-billing
+bench --site site1.local install-app utility_billing
 bench --site site1.local install-app pos_prime
 bench --site site1.local migrate
 bench --site site1.local clear-cache
