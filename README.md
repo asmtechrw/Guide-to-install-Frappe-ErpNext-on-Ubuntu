@@ -344,6 +344,9 @@ bench --site site1.local install-app uganda_compliance
 bench --site site1.local migrate
 bench --site site1.local clear-cache
 bench use site1.local
+bench build
+bench restart
+
 ```
 
 Verify:
