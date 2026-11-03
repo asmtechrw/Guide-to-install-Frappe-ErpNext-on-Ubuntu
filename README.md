@@ -311,6 +311,10 @@ sudo ln -sf /home/frappe/frappe-bench/config/supervisor.conf /etc/supervisor/con
 sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl restart all
+sudo systemctl restart nginx
+sudo nano /etc/nginx/conf.d/frappe-bench.conf
+sudo systemctl restart nginx
+sudo systemctl status nginx
 ```
 
 ---
