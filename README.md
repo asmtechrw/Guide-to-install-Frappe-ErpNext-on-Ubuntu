@@ -256,10 +256,19 @@ sudo usermod -aG supervisor frappe
 ---
 
 # 6. Create Site & Install Frappe
+
+## Enable DNS Multitenancy
+
+```bash
+# bench set-mariadb-host <db_server_ip>
+bench config dns_multitenant on
+```
+
 ## Create New Site
 
 ```bash
 bench new-site site1.local
+# bench --site site1.local add-to-hosts
 ```
 
 ## Enable Scheduler
@@ -294,6 +303,7 @@ sudo env "PATH=$PATH" bench setup production frappe
 
 ```bash
 bench setup nginx
+sudo systemctl restart nginx
 ```
 
 ## Restart Services
@@ -361,12 +371,6 @@ bench version --format table
 
 # 9. SSL & Custom Domain Setup
 
-## Enable DNS Multitenancy
-
-```bash
-bench config dns_multitenant on
-```
-
 ## Add Domain
 
 ```bash
@@ -377,8 +381,8 @@ bench setup add-domain www.mrabhi.com --site mrabhi.com
 
 ```bash
 # dont use this if using uv
-sudo pip install -U pyOpenSSL cryptography
-sudo pip install certbot
+sudo uv add install -U pyopenssl cryptography 
+sudo uv add install certbot 
 
 #use
 sudo snap install core
