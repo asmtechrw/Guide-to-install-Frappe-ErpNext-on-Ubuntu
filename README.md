@@ -340,7 +340,8 @@ bench get-app --branch develop https://github.com/CoaleTech/payroll_africa.git
 bench get-app whatsapp
 bench get-app crm
 bench get-app --branch version-16 https://github.com/navariltd/utility-billing.git
-bench get-app --branch main https://github.com/ravindu2012/pos-prime 
+bench get-app --branch main https://github.com/ravindu2012/pos-prime
+bench get-app --branch version-16 https://github.com/invento-software-limited/epcforge
 ```
 
 ## Install apps on site
@@ -353,10 +354,11 @@ bench --site site1.local install-app whatsapp
 bench --site site1.local install-app crm
 bench --site site1.local install-app utility_billing
 bench --site site1.local install-app pos_prime
+bench --site site1.local install-app epc-forge
 bench --site site1.local migrate
 bench --site site1.local clear-cache
-bench use site1.local
 bench build
+bench use site1.local
 bench restart
 
 ```
