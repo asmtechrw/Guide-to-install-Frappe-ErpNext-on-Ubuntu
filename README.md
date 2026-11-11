@@ -336,7 +336,7 @@ sudo systemctl status nginx
 ```bash
 bench get-app --branch version-16 erpnext 
 bench get-app --branch version-16 hrms
-bench get-app --branch develop https://github.com/CoaleTech/payroll_africa.git
+bench get-app --branch main https://github.com/CoaleTech/payroll_africa.git
 bench get-app whatsapp
 bench get-app crm
 bench get-app --branch version-16 https://github.com/navariltd/utility-billing.git
