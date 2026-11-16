@@ -59,10 +59,10 @@ su - frappe
 ## Install Dependencies
 
 ```bash
-sudo apt install -y git curl gcc build-essential redis-server python3-dev python3-pip python3-setuptools python3-venv \
+sudo apt install -y git curl gcc wget build-essential redis-server python3-dev python3-pip python3-setuptools python3-venv \
 libffi-dev libssl-dev cron libfontconfig libmariadb-dev pkg-config software-properties-common net-tools nginx supervisor \
 xvfb libfontconfig fontconfig zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev \
-libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev
+libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev redis-server
 
 sudo systemctl enable nginx
 sudo systemctl enable supervisor
@@ -147,6 +147,11 @@ sudo tee /etc/mysql/mariadb.conf.d/99-frappe.cnf > /dev/null <<'EOF'
 character-set-client-handshake = FALSE
 character-set-server = utf8mb4
 collation-server = utf8mb4_unicode_ci
+
+innodb_file_per_table = 1
+innodb_buffer_pool_size = 4G
+innodb_log_file_size = 512M
+max_allowed_packet = 128M
 
 [mysql]
 default-character-set = utf8mb4
@@ -267,7 +272,7 @@ bench config dns_multitenant on
 ## Create New Site
 
 ```bash
-bench new-site site1.local
+bench new-site site1.local --db-root-password "YourMariaDbRootPass" --admin-password "StrongErpAdminPassword2026!"
 # bench --site site1.local add-to-hosts
 ```
 
@@ -303,7 +308,8 @@ sudo env "PATH=$PATH" bench setup production frappe
 
 ```bash
 bench setup nginx
-sudo systemctl restart nginx
+sudo ln -s /home/frappe/frappe-bench/config/nginx.conf /etc/nginx/conf.d/erpnext.conf
+sudo nginx -t && sudo systemctl reload nginx
 ```
 
 ## Restart Services
