@@ -348,7 +348,9 @@ bench get-app whatsapp
 bench get-app crm
 bench get-app --branch version-16 https://github.com/navariltd/utility-billing.git
 bench get-app --branch main https://github.com/ravindu2012/pos-prime
-bench get-app --branch version-16 https://github.com/invento-software-limited/epcforge
+bench get-app --branch version-16 https://github.com/erpchampions/uganda_compliance.git 
+
+
 ```
 
 ## Install apps on site
@@ -361,7 +363,7 @@ bench --site site1.local install-app whatsapp
 bench --site site1.local install-app crm
 bench --site site1.local install-app utility_billing
 bench --site site1.local install-app pos_prime
-bench --site site1.local install-app epcforge
+bench --site site1.local install-app uganda_compliance
 bench build
 bench --site site1.local migrate
 bench --site site1.local clear-cache
