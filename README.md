@@ -308,7 +308,6 @@ sudo env "PATH=$PATH" bench setup production frappe
 
 ```bash
 bench setup nginx
-sudo ln -s /home/frappe/frappe-bench/config/nginx.conf /etc/nginx/conf.d/erpnext.conf
 sudo nginx -t && sudo systemctl reload nginx
 sudo supervisorctl reload
 ```
