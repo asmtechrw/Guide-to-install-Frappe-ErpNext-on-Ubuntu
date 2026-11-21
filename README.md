@@ -363,7 +363,7 @@ bench --site site1.local install-app crm
 bench --site site1.local install-app utility_billing
 bench --site site1.local install-app pos_prime
 bench --site site1.local install-app uganda_compliance
-bench build
+bench --site site1.local build
 bench --site site1.local migrate
 bench --site site1.local clear-cache
 bench use site1.local
